@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preview</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: monospace;
+      background: #111;
+      color: #eee;
+    }
+    .error {
+      white-space: pre-wrap;
+      color: #ff6b6b;
+      padding: 16px;
+    }
+  </style>
+</head>
+
+<body>
+
+<script>
+function showError(err) {
+  document.body.innerHTML =
+    '<div class="error">❌ ERROR:\n\n' +
+    (err && err.stack ? err.stack : err) +
+    '</div>';
+}
+
+/* 捕 أخطاء JS */
+window.onerror = function (msg, url, line, col, error) {
+  showError(error || msg);
+  return true;
+};
+
+window.addEventListener("unhandledrejection", e => {
+  showError(e.reason);
+});
+
+/* البداية */
+const worker = new Worker("wrkr.js");
+let loaded = false;
+
+worker.postMessage({ type: "load" });
+
+worker.onmessage = (e) => {
+  if (e.data.type === "loaded") {
+    loaded = true;
+
+    const content = e.data.content;
+
+    /* واش النص فارغ؟ */
+    if (!content || content.trim() === "") {
+      showError("⚠️ النص فارغ، ما كاين حتى شي كود للعرض.");
+      return;
+    }
+
+    /* عرض الكود */
+    try {
+      document.open();
+      document.write(content);
+      document.close();
+    } catch (err) {
+      showError("خطأ أثناء عرض الكود:\n\n" + err);
+    }
+  }
+
+  if (e.data.type === "error") {
+    showError("خطأ أثناء التحميل:\n\n" + e.data.error);
+  }
+};
+
+/* في حالة worker ما رجّع حتى شي حاجة */
+setTimeout(() => {
+  if (!loaded) {
+    showError("⏱️ فشل تحميل البيانات من التخزين.");
+  }
+}, 2000);
+</script>
+
+</body>
+</html>

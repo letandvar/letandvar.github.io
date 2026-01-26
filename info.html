@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="title" content="TYGH • INFO">
+  <meta name="description" content="Lightweight code editor with suggestions for mobile">
+
+  <link rel="icon" type="image/png" sizes="64x64" href="./ics/tygh64.png">
+  <title>TYGH • INFO</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+text-decoration: none;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      background-color: #001a1a;
+      display: flex;
+      flex-direction: column;
+      font-family: arial;
+    }
+
+    #toolbar {
+      display: flex;
+      padding: 5px;
+      border-bottom: 2px dashed #ffffff33;
+    }
+
+    #logo {
+      width: 40px;
+      height: 40px;
+      background-image: url("/ics/tygh2000.jpg");
+      background-size: 100%;
+      background-repeat: no-repeat;
+      background-position: center;
+      border-radius: 5px;
+      background-color: #ffffff18;
+    }
+
+    #name {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #ffffffaa;
+      font-size: 25px;
+    }
+
+    #container {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      padding: 15px 0 0 0;
+    }
+
+    .btn {
+      background-color: #334d4d;
+      padding: 15px 0;
+      margin: 0 auto;
+      width: calc(100% - 40px);
+      text-align: center;
+      color: #ffffffcc;
+      letter-spacing: 2px;
+      font-weight: bold;
+      border-color: #ffffff77;
+      border-width: 0 2px 2px 0;
+      border-style: solid;
+      transition: background 0.2s ease;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .btn:active {
+      background: #223c3c;
+    }
+
+    #crmw {
+      margin: 10px 0 30px 0;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 16px;
+    }
+
+    #cr {
+      color: #ffffff66;
+    }
+
+    #mw {
+      color: #ffffff99;
+    }
+
+    #bc {
+      cursor: pointer;
+      border-bottom: 1px solid #ffffff99;
+    }
+
+    #bc:active {
+      color: #ffffff55;
+    }
+
+    @media (hover:hover) {
+      .btn:hover {
+        background: #223c3c;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="toolbar">
+    <div id="logo"></div>
+    <p id="name">TYGH • INFO</p>
+  </div>
+
+  <div id="container">
+    <a class="btn" href="/">BACK TO EDITOR</a>
+    <p class="btn" id="aboutUs">ABOUT US</p>
+    <p class="btn" id="contactMe">CONTACT ME</p>
+    <p class="btn" id="supportMe">SUPPORT ME</p>
+    <p class="btn" id="moreTools">MORE TOOLS</p>
+    <p class="btn" id="openSource">OPEN SOURCE</p>
+    <a class="btn" href="/logs.html">LOGS</a>
+
+    <div id="crmw">
+      <p id="cr">TYGH © ${unfinded} v1.7</p>
+      <p id="mw">Made with 🫀 By <span id="bc">BADER CHARAF</span></p>
+    </div>
+
+  </div>
+
+
+
+  <script>
+    aboutUs.onclick = () => {
+      alert('This website was created by one person, so there is no "Us" 🙂.');
+    };
+
+    contactMe.onclick = () => {
+      alert("You can contact me directly through my social media accounts, they are all available on my website.\nClick on my name at the bottom of the page to go to it ✅");
+    };
+
+    supportMe.onclick = () => {
+      alert("I don't need your support 😏💪🏻");
+    };
+
+    moreTools.onclick = () => {
+      location.href = "https://unprofitools.pages.dev";
+    };
+
+    openSource.onclick = () => {
+      alert("You can steal anything on this site 😈😈😈.");
+    };
+
+    bc.onclick = () => {
+      open("https://badercharaf.com", "_blank");
+    };
+  </script>
+</body>
+
+</html>
