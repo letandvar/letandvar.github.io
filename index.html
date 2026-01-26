@@ -54,17 +54,6 @@ gap: 5px;
 padding: 5px;
     }
 
-    #logo {
-      width: 100%;
-      max-width: 40px;
-      aspect-ratio: 1;
-      background-image: url("./ics/tygh192t.png");
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-background-color: red;
-    }
-
     .btn {
       background: #2d2d2d;
       border: 1px solid #3c3c3c;
@@ -86,7 +75,7 @@ width: 100%;
     }
 
 .info::before {
-      background-image: url("/ics/ic_i.png");
+      background-image: url("/ics/ic_menu.png");
 background-size: 55%;
     }
 
@@ -355,7 +344,7 @@ font-family: "Arial", "Helvetica", sans-serif;
 
 
   <script>
-    const worker = new Worker("wrkr.js");
+    const worker = new Worker("worker.js");
 
     worker.postMessage({
       type: "load"

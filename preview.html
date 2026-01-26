@@ -30,7 +30,7 @@ function showError(err) {
     '</div>';
 }
 
-/* 捕 أخطاء JS */
+
 window.onerror = function (msg, url, line, col, error) {
   showError(error || msg);
   return true;
@@ -40,8 +40,8 @@ window.addEventListener("unhandledrejection", e => {
   showError(e.reason);
 });
 
-/* البداية */
-const worker = new Worker("wrkr.js");
+
+const worker = new Worker("worker.js");
 let loaded = false;
 
 worker.postMessage({ type: "load" });
@@ -52,31 +52,31 @@ worker.onmessage = (e) => {
 
     const content = e.data.content;
 
-    /* واش النص فارغ؟ */
+    
     if (!content || content.trim() === "") {
-      showError("⚠️ النص فارغ، ما كاين حتى شي كود للعرض.");
+      showError("No code here ⚠️");
       return;
     }
 
-    /* عرض الكود */
+
     try {
       document.open();
       document.write(content);
       document.close();
     } catch (err) {
-      showError("خطأ أثناء عرض الكود:\n\n" + err);
+      showError("Error while printing the code:\n\n" + err);
     }
   }
 
   if (e.data.type === "error") {
-    showError("خطأ أثناء التحميل:\n\n" + e.data.error);
+    showError("Error while loading the code:\n\n" + e.data.error);
   }
 };
 
-/* في حالة worker ما رجّع حتى شي حاجة */
+
 setTimeout(() => {
   if (!loaded) {
-    showError("⏱️ فشل تحميل البيانات من التخزين.");
+    showError("Data loading from storage failed ⏱️");
   }
 }, 2000);
 </script>

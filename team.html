@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TYGH • TEAM</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      -webkit-tap-highlight-color: transparent;
+      text-decoration: none;
+      box-sizing: border-box;
+      user-select: none;
+      font-family: arial;
+      text-align: center;
+      overflow-wrap: anywhere;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      background-color: #1e1e1e;
+      color: #ffffffbb;
+    }
+
+    #container {
+      width: 100%;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .person {
+      width: 100%;
+      max-width: 400px;
+      border: 2px solid #4f4f4f;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 15px 0;
+    }
+
+    .logo {
+      width: 90px;
+      height: 90px;
+      background-color: #ffffff11;
+      box-shadow: 0 0 0 2px #ffffff36;
+      border-radius: 50%;
+      background-repeat: no-repeat;
+      background-size: 100%;
+    }
+
+    .name {
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    .info {}
+
+    .role {
+      background-color: Teal;
+      padding: 6px 10px;
+      border-radius: 50px;
+      color: #ffffffdd;
+      font-size: 16px;
+    }
+
+    .letandvar {
+      background-image: url("/ics/letandvar.jpg");
+    }
+
+    .badercharaf {
+      background-image: url("/ics/badercharaf.jpg");
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <div class="person">
+      <div class="logo letandvar"></div>
+      <p class="name">LETANDVAR</p>
+      <p class="info">Web Developer, Songwriter</p>
+      <p class="role">UI Specialist</p>
+    </div>
+
+    <div class="person">
+      <div class="logo badercharaf"></div>
+      <p class="name">Bader Charaf</p>
+      <p class="info">App Developer, Rapper</p>
+      <p class="role">Coder, Bug Fixer</p>
+    </div>
+  </div>
+</body>
+
+</html>
