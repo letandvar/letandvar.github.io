@@ -23,6 +23,17 @@
   <title>TYGH</title>
 
   <style>
+    ::selection {
+      background-color: #ffffff33;
+      color: #efefef;
+    }
+
+    ::-moz-selection {
+      background-color: #ff9900;
+      color: #efefef;
+    }
+
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -42,7 +53,7 @@
     }
 
     #bar {
-height: fit-content;
+      height: fit-content;
       max-height: 50px;
       display: flex;
       align-items: center;
@@ -50,15 +61,15 @@ height: fit-content;
       padding: 0 5px;
       background: #252526;
       border-bottom: 1px solid #2d2d2d;
-gap: 5px;
-padding: 5px;
+      gap: 5px;
+      padding: 5px;
     }
 
     .btn {
       background: #2d2d2d;
       border: 1px solid #3c3c3c;
       border-radius: 6px;
-width: 100%;
+      width: 100%;
       max-width: 40px;
       aspect-ratio: 1;
     }
@@ -74,9 +85,9 @@ width: 100%;
       opacity: 0.7;
     }
 
-.info::before {
+    .info::before {
       background-image: url("/ics/ic_menu.png");
-background-size: 55%;
+      background-size: 55%;
     }
 
     .fontsz::before {
@@ -89,16 +100,16 @@ background-size: 55%;
       background-size: 70%;
     }
 
-.clear::before {
+    .clear::before {
       background-image: url("/ics/ic_delete.png");
-background-size: 60%;
+      background-size: 60%;
     }
 
-.upload::before {
+    .upload::before {
       background-image: url("/ics/ic_upload.png");
     }
 
-.copy::before {
+    .copy::before {
       background-image: url("/ics/ic_copy.png");
     }
 
@@ -110,9 +121,9 @@ background-size: 60%;
       background-image: url("/ics/ic_share.png");
     }
 
-    .play::before {
+    .preview::before {
       background-image: url("/ics/ic_preview.png");
-background-size: 70%;
+      background-size: 70%;
     }
 
     .btn:active {
@@ -131,22 +142,21 @@ background-size: 70%;
 
     #barFontSize {
       display: none;
-padding: 5px 15px;
-gap: 15px;
-background: #252526;
+      padding: 5px 15px;
+      gap: 15px;
+      background: #252526;
       border-bottom: 1px solid #2d2d2d;
-align-items: center;
+      align-items: center;
     }
 
-#fontSizeSeekBar {
-flex: 1;
-border: 3px solid #fff;
-}
+    #fontSizeSeekBar {
+      flex: 1;
+    }
 
     #fontValue {
       color: #d4d4d4;
       font-size: 16px;
-font-family: "Arial", "Helvetica", sans-serif;
+      font-family: "Arial", "Helvetica", sans-serif;
     }
 
 
@@ -215,15 +225,18 @@ font-family: "Arial", "Helvetica", sans-serif;
 
     @media (hover:hover) {
 
-      #play:hover {
+      #preview:hover {
         background: #3c3c3c;
       }
 
       #suggestions div:hover {
-        background: #094771;
+        background: #3c3c3c;
         color: #ffffff;
       }
 
+      #symbolsContainer p:hover {
+        background: #3c3c3c;
+      }
 
     }
 
@@ -247,6 +260,14 @@ font-family: "Arial", "Helvetica", sans-serif;
       border-radius: 2px;
       color: #d4d4d4;
     }
+
+    #symbolsContainer p:active {
+      background: #3c3c3c;
+    }
+
+    #barFontSize[hidden] {
+      display: flex;
+    }
   </style>
 </head>
 
@@ -255,14 +276,14 @@ font-family: "Arial", "Helvetica", sans-serif;
   <div id="bar">
 
     <a class="btn info" href="/info.html"></a>
-    <div class="btn fontsz" onclick="showhide()"></div>
+    <div class="btn fontsz" onclick="barFontSize.hidden ^=1"></div>
     <div class="btn clean" onclick="clean()"></div>
     <div class="btn upload" onclick="upload()"></div>
-<div class="btn clear" onclick="clearr()"></div>
-<div class="btn copy" onclick="copy()"></div>
+    <div class="btn clear" onclick="clr()"></div>
+    <div class="btn copy" onclick="copy()"></div>
     <div class="btn download" onclick="download()"></div>
     <div class="btn share" onclick="share()"></div>
-    <a class="btn play" href="/preview.html"></a>
+    <a class="btn preview" onclick="preview()"></a>
   </div>
 
   <div id="barFontSize">
@@ -278,6 +299,8 @@ font-family: "Arial", "Helvetica", sans-serif;
 
 
   <script>
+    let timeout;
+
     editor.addEventListener("click", () => {
       suggestions.innerHTML = "";
     });
@@ -300,28 +323,37 @@ font-family: "Arial", "Helvetica", sans-serif;
 
   <script>
     function preview() {
-      location.href = "/preview.html";
+      const blob = new Blob([editor.value], {
+        type: "text/html"
+      });
+      const url = URL.createObjectURL(blob);
+      window.open(url, "_blank");
     };
+
+
+    /*
+    //use this method if you use TYGH in your local device bcs urls not work on blob
+
+    function preview() {
+      const win = window.open("preview.html", "_blank");
+      const htmlContent = editor.value;
+
+      // katsna preview.html load
+      const interval = setInterval(() => {
+        if (win && !win.closed) {
+          try {
+            win.postMessage({ content: htmlContent }, location.origin);
+            clearInterval(interval);
+          } catch (e) {}
+        } else {
+          clearInterval(interval);
+        }
+      }, 100);
+    }*/
   </script>
 
 
   <script>
-    let showhideRange = 0;
-
-    function showhide() {
-      if (showhideRange === 0) {
-        barFontSize.style.display = "flex";
-        showhideRange++;
-      } else {
-        barFontSize.style.display = "none";
-        showhideRange--;
-      }
-
-
-    }
-
-
-
     let fontSize = parseInt(localStorage.getItem("fontSize")) || 10;
 
     const fontValue = document.getElementById("fontValue");
@@ -359,21 +391,7 @@ font-family: "Arial", "Helvetica", sans-serif;
 
 
   <script>
-    let timeout;
-    editor.addEventListener("input", () => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        worker.postMessage({
-          type: "backup",
-          content: editor.value
-        });
-      }, 300);
-    });
-  </script>
-
-
-  <script>
-    const symbols = ["#", "*", "(", ")", "[", "]", "/", "\\", "\"", "'", "`", ":", ";", "{", "}", "<", ">", "=", "-", "$", "!", "%", "|"];
+    const symbols = ["#", "*", "(", ")", "[", "]", "/", "\\", "\"", "'", "`", ":", ";", "{", "}", "<", ">", "=", "-", "$", "!", "%", "|", "^"];
     const symbolsContainer = document.getElementById("symbolsContainer");
 
 
@@ -393,6 +411,7 @@ font-family: "Arial", "Helvetica", sans-serif;
         const newPos = pos + sym.length;
         editor.setSelectionRange(newPos, newPos);
         editor.focus();
+        editorEvent();
       });
 
       symbolsContainer.appendChild(p);
@@ -410,7 +429,7 @@ font-family: "Arial", "Helvetica", sans-serif;
           preserve_newlines: true,
         });
         editor.value = formatted;
-editor.dispatchEvent(new Event("input", { bubbles: true }));
+        editorEvent();
       } catch (e) {
         alert("ERR: " + e.message);
       }
@@ -439,44 +458,54 @@ editor.dispatchEvent(new Event("input", { bubbles: true }));
     };
   </script>
 
-<script>
-function copy() {
-    try {
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(editor.value);
-        alert("Code copied!");
-      } else {
-        alert("Clipboard API not supported in this browser.");
-      };
-    } catch (e) {
-      alert("ERR: " + e.message);
+  <script>
+    function copy() {
+      try {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(editor.value);
+          alert("Code copied!");
+        } else {
+          alert("Clipboard API not supported in this browser.");
+        };
+      } catch (e) {
+        alert("ERR: " + e.message);
+      }
     }
-  }
-</script>
+  </script>
 
-<script>
-function clearr() {
-const result = confirm("Do you want to delete the code?");
-  if(result) {
-editor.value = "";
-editor.dispatchEvent(new Event("input", { bubbles: true }));
-  }
-}
-</script>
+  <script>
+    function clr() {
+      const result = confirm("Do you want to delete the code?");
+      if (result) {
+        editor.value = "";
+        editorEvent();
+      }
+    }
+  </script>
 
-<script>
-function share() {
-alert("This feature hasn't yet been added.");
-}
+  <script>
+    function share() {
+      alert("This feature hasn't yet been added.");
+    }
 
-function upload() {
-alert("This feature hasn't yet been added.");
-}
+    function upload() {
+      alert("This feature hasn't yet been added.");
+    }
 
-function info() {
-open("/info.html");
-}
-</script>
+    function info() {
+      open("/info.html");
+    }
+
+    function editorEvent() {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        worker.postMessage({
+          type: "backup",
+          content: editor.value
+        });
+      }, 300);
+    }
+  </script>
 
 
   <script defer src="/suggs.js"></script>

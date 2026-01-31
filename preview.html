@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
       background: #111;
       color: #eee;
     }
+
     .error {
       white-space: pre-wrap;
       color: #ff6b6b;
@@ -22,64 +24,50 @@
 
 <body>
 
-<script>
-function showError(err) {
-  document.body.innerHTML =
-    '<div class="error">❌ ERROR:\n\n' +
-    (err && err.stack ? err.stack : err) +
-    '</div>';
-}
-
-
-window.onerror = function (msg, url, line, col, error) {
-  showError(error || msg);
-  return true;
-};
-
-window.addEventListener("unhandledrejection", e => {
-  showError(e.reason);
-});
-
-
-const worker = new Worker("worker.js");
-let loaded = false;
-
-worker.postMessage({ type: "load" });
-
-worker.onmessage = (e) => {
-  if (e.data.type === "loaded") {
-    loaded = true;
-
-    const content = e.data.content;
-
-    
-    if (!content || content.trim() === "") {
-      showError("No code here ⚠️");
-      return;
+  <script>
+    function showError(err) {
+      document.body.innerHTML =
+        '<div class="error">❌ ERROR:\n\n' +
+        (err && err.stack ? err.stack : err) +
+        '</div>';
     }
 
+    // Catch JS runtime errors
+    window.onerror = function(msg, url, line, col, error) {
+      showError(error || msg || "Unknown error");
+      return true;
+    };
 
-    try {
-      document.open();
-      document.write(content);
-      document.close();
-    } catch (err) {
-      showError("Error while printing the code:\n\n" + err);
-    }
-  }
+    // Catch unhandled Promise rejections
+    window.addEventListener("unhandledrejection", e => {
+      showError(e.reason || "Unhandled rejection");
+    });
 
-  if (e.data.type === "error") {
-    showError("Error while loading the code:\n\n" + e.data.error);
-  }
-};
+    // Handle postMessage from parent
+    let loaded = false;
+    window.addEventListener("message", (e) => {
+      if (e.origin !== location.origin) {
+        showError("Origin mismatch: " + e.origin);
+      } else if (!e.data || !e.data.content) {
+        showError("No content received in message!");
+      } else {
+        try {
+          document.open();
+          document.write(e.data.content);
+          document.close();
+          loaded = true;
+        } catch (err) {
+          showError("Error while writing content:\n" + err);
+        }
+      }
+    });
 
-
-setTimeout(() => {
-  if (!loaded) {
-    showError("Data loading from storage failed ⏱️");
-  }
-}, 2000);
-</script>
+    // Timeout if no message arrives
+    setTimeout(() => {
+      if (!loaded) showError("Data loading from parent timed out ⏱️");
+    }, 3000);
+  </script>
 
 </body>
+
 </html>

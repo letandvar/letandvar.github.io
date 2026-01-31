@@ -14,77 +14,10 @@ fetch("/data.json")
     alert("Error loading data: " + err);
     });
 
-editor.addEventListener("input", showSuggestions);
+editor.oninput = () => {
 
+editorEvent();
 
-/*
-function showSuggestions() {
-  const pos = editor.selectionStart;
-  const textBefore = editor.value.slice(0, pos);
-
-  
-  const match = textBefore.match(/([-\.]?[A-Za-z_$][\w\-$]*|<[^ >]*)$/);
-
-  if (!match) {
-    suggestions.innerHTML = "";
-    return;
-  }
-
-  const fullWord = match[1];
-  
-  const afterDot = match[2] || "";
-
-
-  let filtered = [];
-
-  //with <
-  if (fullWord.startsWith("<")) {
-    filtered = keywords.filter(k => k.startsWith(fullWord));
-  } else if (fullWord.startsWith(".")) {
-
-  //with dot
-    filtered = keywords.filter(k => k.startsWith(fullWord));
-  } else if (afterDot) {
-  
-  //after dot
-    filtered = keywords.filter(k => k.startsWith("." + afterDot));
-  } else {
-  
-  
-  //word
-    filtered = keywords.filter(k => k.startsWith(fullWord));
-  }
-
-  suggestions.innerHTML = "";
-
-  filtered.forEach(k => {
-    const div = document.createElement("div");
-    div.textContent = k;
-
-    div.addEventListener("mousedown", (e) => {
-      e.preventDefault();
-
-      const posNow = editor.selectionStart;
-
-      const before = editor.value.slice(0, posNow - fullWord.length);
-      const after = editor.value.slice(posNow);
-
-      editor.value = before + k + after;
-
-      const newPos = before.length + k.length;
-      editor.setSelectionRange(newPos, newPos);
-
-      suggestions.innerHTML = "";
-      editor.focus();
-    });
-
-    suggestions.appendChild(div);
-  });
-}*/
-
-
-
-function showSuggestions() {
   const pos = editor.selectionStart;
   const textBefore = editor.value.slice(0, pos);
 
@@ -150,7 +83,7 @@ function showSuggestions() {
       editor.setSelectionRange(newPos, newPos);
       suggestions.innerHTML = "";
       editor.focus();
-editor.dispatchEvent(new Event("input", { bubbles: true }));
+editorEvent();
     });
 
     suggestions.appendChild(div);

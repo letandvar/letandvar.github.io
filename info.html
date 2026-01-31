@@ -17,7 +17,7 @@
       user-select: none;
       -webkit-tap-highlight-color: transparent;
       outline: none;
-text-decoration: none;
+      text-decoration: none;
     }
 
     html,
@@ -28,54 +28,62 @@ text-decoration: none;
       display: flex;
       flex-direction: column;
       font-family: arial;
+      text-align: center;
     }
 
     #toolbar {
       display: flex;
+      flex-direction: column;
       padding: 5px;
       border-bottom: 2px dashed #ffffff33;
+      gap: 10px;
+      padding: 20px;
     }
 
     #logo {
-      width: 40px;
-      height: 40px;
+      width: 120px;
+      aspect-ratio: 1;
       background-image: url("/ics/tygh2000.jpg");
       background-size: 100%;
       background-repeat: no-repeat;
       background-position: center;
-      border-radius: 5px;
+      border-radius: 50%;
       background-color: #ffffff18;
+      margin: 0 auto;
     }
 
     #name {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       color: #ffffffaa;
       font-size: 25px;
     }
 
+    #slogan {
+      color: #ffffff88;
+    }
+
     #container {
+      width: 100%;
       height: 100%;
       display: flex;
       flex-direction: column;
-      gap: 15px;
-      padding: 15px 0 0 0;
+    }
+
+    #btns {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      padding: 10px;
     }
 
     .btn {
       background-color: #334d4d;
       padding: 15px 0;
-      margin: 0 auto;
-      width: calc(100% - 40px);
-      text-align: center;
+      width: 100%;
+      height: fit-content;
       color: #ffffffcc;
       letter-spacing: 2px;
       font-weight: bold;
-      border-color: #ffffff77;
-      border-width: 0 2px 2px 0;
-      border-style: solid;
+      border: 1px solid #ffffff22;
       transition: background 0.2s ease;
       cursor: pointer;
       font-size: 15px;
@@ -85,13 +93,16 @@ text-decoration: none;
       background: #223c3c;
     }
 
+    #flex {
+      flex: 1;
+    }
+
     #crmw {
       margin: 10px 0 30px 0;
-      text-align: center;
       display: flex;
       flex-direction: column;
       gap: 10px;
-      font-size: 16px;
+      font-size: 14px;
     }
 
     #cr {
@@ -120,20 +131,24 @@ text-decoration: none;
 </head>
 
 <body>
-  <div id="toolbar">
-    <div id="logo"></div>
-    <p id="name">TYGH • INFO</p>
-  </div>
-
   <div id="container">
-    <a class="btn" href="/">BACK TO EDITOR</a>
-    <p class="btn" id="aboutUs">ABOUT US</p>
-    <p class="btn" id="contactMe">CONTACT ME</p>
-    <p class="btn" id="supportMe">SUPPORT ME</p>
-    <a class="btn" href="https://unprofitools.pages.dev">MORE TOOLS</a>
-    <a class="btn" href="https://github.com/letandvar">OPEN SOURCE</a>
-    <a class="btn" href="/logs.html">LOGS</a>
-<a class="btn" href="/team.html">TEAM</a>
+    <div id="toolbar">
+      <div id="logo"></div>
+      <p id="name">TYGH</p>
+      <p id="slogan">Type Your Great History</p>
+    </div>
+
+
+    <div id="btns">
+      <a class="btn" href="/">EDITOR</a>
+      <p class="btn" id="aboutUs">ABOUT US</p>
+      <p class="btn" id="contactMe">CONTACT ME</p>
+      <p class="btn" id="supportMe">SUPPORT ME</p>
+      <a class="btn" href="https://github.com/letandvar">SOURCE CODE</a>
+      <a class="btn" href="/team.html">TEAM</a>
+    </div>
+
+    <div id="flex"></div>
 
     <div id="crmw">
       <p id="cr">TYGH © 2026</p>
