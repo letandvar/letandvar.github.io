@@ -24,8 +24,8 @@
   <script>
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/resizeIcon.js')
-    .then(() => console.log('SW registered'))
-    .catch(console.error);
+    .then(() => alert('SW registered'))
+    .catch(error => alert(error.message));
 }
   </script>
 
