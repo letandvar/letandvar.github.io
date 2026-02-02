@@ -1,7 +1,7 @@
 self.addEventListener("fetch", event => {
   const url = new URL(event.request.url);
 
-  if (url.pathname === "/resizeIco.js" && url.searchParams.has("p")) {
+  if (url.pathname === "/resizeIcon.js" && url.searchParams.has("p")) {
     event.respondWith(handleImage(url));
   }
 });
