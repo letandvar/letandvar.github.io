@@ -18,7 +18,25 @@
   <meta name="title" content="TYGH">
   <meta name="description" content="Lightweight code editor with suggestions for mobile">
 
-  <link rel="icon" type="image/png" sizes="64x64" href="./ics/tygh64.png">
+ <!-- <link rel="icon" type="image/png" sizes="64x64" href="./ics/tygh64.png"> -->
+
+
+<link rel="icon" type="image/svg+xml" href="/ics/favicon.svg">
+
+<link rel="icon" type="image/x-icon" href="/ics/favicon.ico">
+
+<link rel="icon" type="image/png" sizes="16x16"
+      href="/resizeIcon.js?p=favicon.png&w=16">
+
+<link rel="icon" type="image/png" sizes="32x32"
+      href="/resizeIcon.js?p=favicon.png&w=32">
+
+<link rel="apple-touch-icon" sizes="180x180"
+      href="/resizeIcon.js?p=favicon.png&w=180">
+
+<link rel="icon" type="image/png" sizes="192x192"
+      href="/resizeIcon.js?p=favicon.png&w=192">
+
 
   <title>TYGH</title>
 
@@ -72,6 +90,7 @@
       width: 100%;
       max-width: 40px;
       aspect-ratio: 1;
+curser: pointer;
     }
 
     .btn::before {
@@ -274,7 +293,6 @@
 <body>
 
   <div id="bar">
-
     <a class="btn info" href="/info.html"></a>
     <div class="btn fontsz" onclick="barFontSize.hidden ^=1"></div>
     <div class="btn clean" onclick="clean()"></div>
