@@ -21,15 +21,17 @@
  <!-- <link rel="icon" type="image/png" sizes="64x64" href="./ics/tygh64.png"> -->
 
 
+
+
   <script>
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/resizeIcon.js')
-    .then(() => alert('SW registered'))
-    .catch(error => alert(error.message));
+    .then(() => console.log('SW registered'))
+    .catch(console.error);
 }
   </script>
 
-  
+
 <link rel="icon" type="image/svg+xml" href="/ics/favicon.svg">
 
 <link rel="icon" type="image/x-icon" href="/ics/favicon.ico">
@@ -300,7 +302,6 @@ curser: pointer;
 </head>
 
 <body>
-<img src='/resizeIcon.js?p=favicon.png&w=16' alt='' style="width: 60px; height: 60px;">
   <div id="bar">
     <a class="btn info" href="/info.html"></a>
     <div class="btn fontsz" onclick="barFontSize.hidden ^=1"></div>
