@@ -9,12 +9,12 @@
   "theme_color": "#1e1e1e",
   "icons": [
     {
-      "src": "/ics/tygh192.png",
+      "src": "/ics/192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/ics/tygh512.png",
+      "src": "/ics/512.png",
       "sizes": "512x512",
       "type": "image/png"
     }

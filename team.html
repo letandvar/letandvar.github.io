@@ -4,6 +4,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/resizeIcon.js')
+        .then(() => console.log('SW registered'))
+        .catch(console.error);
+    }
+  </script>
+
+<link rel="icon" type="image/svg+xml" href="/ics/favicon.svg">
+
+  <link rel="icon" type="image/x-icon" href="/ics/favicon.ico">
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/resizeIcon.js?p=favicon.png&w=16">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/resizeIcon.js?p=favicon.png&w=32">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/resizeIcon.js?p=favicon.png&w=180">
+
+  <link rel="icon" type="image/png" sizes="192x192" href="/resizeIcon.js?p=favicon.png&w=192">
+
   <title>TYGH • TEAM</title>
   <style>
     * {
@@ -79,6 +100,10 @@
     .badercharaf {
       background-image: url("/ics/badercharaf.jpg");
     }
+
+.chatgpt {
+background-image: url("/ics/chatgpt.jpg");
+    }
   </style>
 </head>
 
@@ -88,14 +113,21 @@
       <div class="logo letandvar"></div>
       <p class="name">LETANDVAR</p>
       <p class="info">Web Developer, Songwriter</p>
-      <p class="role">UI Specialist</p>
+      <p class="role">UI Specialist, Bugs Maker</p>
     </div>
 
     <div class="person">
       <div class="logo badercharaf"></div>
       <p class="name">Bader Charaf</p>
       <p class="info">App Developer, Rapper</p>
-      <p class="role">Coder, Bug Fixer</p>
+      <p class="role">Coder, Bugs Fixer</p>
+    </div>
+
+<div class="person">
+      <div class="logo chatgpt"></div>
+      <p class="name">ChatGPT</p>
+      <p class="info">AI</p>
+      <p class="role">CTRL + A</p>
     </div>
   </div>
 </body>

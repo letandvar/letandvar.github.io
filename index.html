@@ -7,9 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content">
 
 
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.9/beautify.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.9/beautify-html.min.js"></script>
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.9/beautify-css.min.js"></script>
 
 
   <link rel="manifest" href="./manifest.json">
@@ -18,35 +16,31 @@
   <meta name="title" content="TYGH">
   <meta name="description" content="Lightweight code editor with suggestions for mobile">
 
- <!-- <link rel="icon" type="image/png" sizes="64x64" href="./ics/tygh64.png"> -->
+  <!-- <link rel="icon" type="image/png" sizes="64x64" href="./ics/tygh64.png"> -->
 
 
 
 
   <script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/resizeIcon.js')
-    .then(() => console.log('SW registered'))
-    .catch(console.error);
-}
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/resizeIcon.js')
+        .then(() => console.log('SW registered'))
+        .catch(console.error);
+    }
   </script>
 
 
-<link rel="icon" type="image/svg+xml" href="/ics/favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="/ics/favicon.svg">
 
-<link rel="icon" type="image/x-icon" href="/ics/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="/ics/favicon.ico">
 
-<link rel="icon" type="image/png" sizes="16x16"
-      href="/resizeIcon.js?p=favicon.png&w=16">
+  <link rel="icon" type="image/png" sizes="16x16" href="/resizeIcon.js?p=favicon.png&w=16">
 
-<link rel="icon" type="image/png" sizes="32x32"
-      href="/resizeIcon.js?p=favicon.png&w=32">
+  <link rel="icon" type="image/png" sizes="32x32" href="/resizeIcon.js?p=favicon.png&w=32">
 
-<link rel="apple-touch-icon" sizes="180x180"
-      href="/resizeIcon.js?p=favicon.png&w=180">
+  <link rel="apple-touch-icon" sizes="180x180" href="/resizeIcon.js?p=favicon.png&w=180">
 
-<link rel="icon" type="image/png" sizes="192x192"
-      href="/resizeIcon.js?p=favicon.png&w=192">
+  <link rel="icon" type="image/png" sizes="192x192" href="/resizeIcon.js?p=favicon.png&w=192">
 
 
   <title>TYGH</title>
@@ -67,6 +61,10 @@ if ('serviceWorker' in navigator) {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      user-select: none;
+      outline: none;
+      border: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
     html,
@@ -77,8 +75,6 @@ if ('serviceWorker' in navigator) {
       height: 100dvh;
       display: flex;
       flex-direction: column;
-      user-select: none;
-      -webkit-tap-highlight-color: transparent;
     }
 
     #bar {
@@ -101,7 +97,7 @@ if ('serviceWorker' in navigator) {
       width: 100%;
       max-width: 40px;
       aspect-ratio: 1;
-curser: pointer;
+      curser: pointer;
     }
 
     .btn::before {
@@ -268,6 +264,10 @@ curser: pointer;
         background: #3c3c3c;
       }
 
+      #confirmDialog menu button:hover {
+        opacity: 70%;
+      }
+
     }
 
     #symbolsContainer {
@@ -298,6 +298,55 @@ curser: pointer;
     #barFontSize[hidden] {
       display: flex;
     }
+
+    #confirmDialog {
+      background-color: #2d2d2d;
+      border: none;
+      border-box: none;
+      border-radius: 8px;
+      margin: auto;
+      padding: 10px;
+      width: calc(100% - 40px);
+      max-width: 480px;
+      font-family: Arial;
+box-shadow: 0 0 20px 0 #00000055;
+    }
+
+    #dialogTitle {
+      font-size: 25px;
+      color: #d4d4d4;
+    }
+
+    #dialogText {
+      margin: 15px 0;
+      font-size: 15px;
+      color: #ffffff88;
+    }
+
+    #confirmDialog menu {
+      display: flex;
+      gap: 10px;
+    }
+
+    #confirmDialog menu button {
+      flex: 1;
+      padding: 10px 0;
+      font-size: 20px;
+      border-radius: 3px;
+      color: #ffffffbb;
+    }
+
+    #confirmDialog menu button:active {
+      opacity: 70%;
+    }
+
+    #okBtn {
+      background-color: #cc4444;
+    }
+
+    #cancelBtn {
+      background-color: #559955;
+    }
   </style>
 </head>
 
@@ -324,6 +373,19 @@ curser: pointer;
     <div id="symbolsContainer"></div>
     <div id="suggestions"></div>
   </div>
+
+
+
+  <dialog id="confirmDialog">
+    <form method="dialog">
+      <p id="dialogTitle">🚮 delete the code?</p>
+      <p id="dialogText">The code will be permanently deleted and cannot be recovered!</p>
+      <menu>
+        <button id="cancelBtn" value="cancel">CANCEL</button>
+        <button id="okBtn" value="ok">DELETE</button>
+      </menu>
+    </form>
+  </dialog>
 
 
   <script>
@@ -366,7 +428,7 @@ curser: pointer;
       const win = window.open("preview.html", "_blank");
       const htmlContent = editor.value;
 
-      // katsna preview.html load
+      //preview.html load
       const interval = setInterval(() => {
         if (win && !win.closed) {
           try {
@@ -419,7 +481,7 @@ curser: pointer;
 
 
   <script>
-    const symbols = ["#", "*", "(", ")", "[", "]", "/", "\\", "\"", "'", "`", ":", ";", "{", "}", "<", ">", "=", "-", "$", "!", "%", "|", "^"];
+    const symbols = ["#", "*", "(", ")", "[", "]", "/", "\\", "\"", "'", "`", ":", ";", "{", "}", "<", ">", "=", "-", "$", "!", "%", "|", "^", "?"];
     const symbolsContainer = document.getElementById("symbolsContainer");
 
 
@@ -502,12 +564,53 @@ curser: pointer;
   </script>
 
   <script>
+    const dialog = document.getElementById("confirmDialog");
+    let interval;
+
+    dialog.addEventListener("close", () => {
+      document.body.style.filter = "none";
+      clearInterval(interval);
+    });
+
     function clr() {
-      const result = confirm("Do you want to delete the code?");
-      if (result) {
+      const okBtn = document.getElementById("okBtn");
+      const cancelBtn = document.getElementById("cancelBtn");
+      const text = document.getElementById("dialogText");
+
+      let seconds = 3;
+
+      okBtn.disabled = true;
+      okBtn.textContent = seconds;
+
+      dialog.showModal();
+      document.body.style.filter = "blur(3px)";
+
+      clearInterval(interval);
+      interval = setInterval(() => {
+        seconds--;
+
+        if (seconds > 0) {
+          okBtn.textContent = seconds;
+        } else {
+          okBtn.textContent = "DELETE";
+          okBtn.disabled = false;
+          clearInterval(interval);
+        }
+      }, 1000);
+
+      okBtn.onclick = () => {
         editor.value = "";
         editorEvent();
-      }
+        closeDialog();
+      };
+
+      cancelBtn.onclick = () => {
+        closeDialog();
+      };
+    }
+
+    function closeDialog() {
+      dialog.close();
     }
   </script>
 

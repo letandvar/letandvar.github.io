@@ -7,7 +7,26 @@
   <meta name="title" content="TYGH • INFO">
   <meta name="description" content="Lightweight code editor with suggestions for mobile">
 
-  <link rel="icon" type="image/png" sizes="64x64" href="./ics/tygh64.png">
+<script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/resizeIcon.js')
+        .then(() => console.log('SW registered'))
+        .catch(console.error);
+    }
+  </script>
+
+<link rel="icon" type="image/svg+xml" href="/ics/favicon.svg">
+
+  <link rel="icon" type="image/x-icon" href="/ics/favicon.ico">
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/resizeIcon.js?p=favicon.png&w=16">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/resizeIcon.js?p=favicon.png&w=32">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/resizeIcon.js?p=favicon.png&w=180">
+
+  <link rel="icon" type="image/png" sizes="192x192" href="/resizeIcon.js?p=favicon.png&w=192">
+
   <title>TYGH • INFO</title>
   <style>
     * {
@@ -43,13 +62,15 @@
     #logo {
       width: 120px;
       aspect-ratio: 1;
-      background-image: url("/ics/tygh2000.jpg");
+      background-image: url("/resizeIcon.js?p=favicon.jpg&w=512");
       background-size: 100%;
       background-repeat: no-repeat;
       background-position: center;
-      border-radius: 50%;
       background-color: #ffffff18;
+border: 2px solid #ffffff44;
+border-radius: 50%;
       margin: 0 auto;
+
     }
 
     #name {
@@ -146,6 +167,7 @@
       <p class="btn" id="supportMe">SUPPORT ME</p>
       <a class="btn" href="https://github.com/letandvar">SOURCE CODE</a>
       <a class="btn" href="/team.html">TEAM</a>
+<a class="btn" href="https://t.me/badercharaf">REPORT A BUG</a>
     </div>
 
     <div id="flex"></div>
