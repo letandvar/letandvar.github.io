@@ -156,6 +156,11 @@
             background-size: 75%;
         }
 
+        .icon_upscrolled {
+            background-size: 50%;
+            background-position: 50% 55%;
+        }
+
         @media (hover: hover) {
             .button:hover {
                 gap: 30px;
@@ -178,79 +183,86 @@
     </div>
 
     <script>
-        const lm = [{
-            "link": "facebook.com/letandvar",
-            "title": "Facebook",
-            "name": "facebook",
-            "id": "3128208"
-        }, {
-            "link": "instagram.com/letandvar",
-            "title": "Instagram",
-            "name": "instagram",
-            "id": "2111491"
-        }, {
-            "link": "x.com/let_and_var",
-            "title": "X",
-            "name": "x",
-            "id": "5968958"
-        }, {
-            "link": "tiktok.com/@letandvar.html",
-            "title": "TikTok",
-            "name": "tiktok",
-            "id": "3046120"
-        }, {
-            "link": "t.me/letandvar",
-            "title": "Telegram",
-            "name": "telegram",
-            "id": "15047617"
-        }, {
-            "link": "youtube.com/@letandvar",
-            "title": "YouTube",
-            "name": "youtube",
-            "id": "2111795"
-        }, {
-            "link": "dailymotion.com/letandvar",
-            "title": "Dailymotion",
-            "name": "dailymotion",
-            "id": "dailymotion"
-        }, {
-            "link": "github.com/letandvar",
-            "title": "Github",
-            "name": "github",
-            "id": "4926624"
-        }, {
-            "link": "pinterest.com/letandvar",
-            "title": "Pinterest",
-            "name": "pinterest",
-            "id": "152817"
-        }, {
-            "link": "open.spotify.com/artist/1JvwkUGJ4vPJMzZHDaJuos",
-            "title": "Listen on Spotify",
-            "name": "spotify",
-            "id": "49097"
-        }, {
-            "link": "music.apple.com/ma/artist/letandvar/1867509230",
-            "title": "Listen on Apple Music",
-            "name": "applemusic",
-            "id": "747"
-        }, {
-            "link": "letandvar8@gmail.com",
-            "title": "letandvar8@gmail.com",
-            "name": "email",
-            "id": "3059486"
-        }];
+        const lm = {
+            facebook: {
+                link: "facebook.com/letandvar",
+                title: "Facebook",
+                id: "3128208"
+            },
+            instagram: {
+                link: "instagram.com/letandvar",
+                title: "Instagram",
+                id: "2111491"
+            },
+            x: {
+                link: "x.com/let_and_var",
+                title: "X",
+                id: "5968958"
+            },
+            tiktok: {
+                link: "tiktok.com/@letandvar",
+                title: "TikTok",
+                id: "3046120"
+            },
+            telegram: {
+                link: "t.me/letandvar",
+                title: "Telegram",
+                id: "15047617"
+            },
+            youtube: {
+                link: "youtube.com/@letandvar",
+                title: "YouTube",
+                id: "2111795"
+            },
+            dailymotion: {
+                link: "dailymotion.com/letandvar",
+                title: "Dailymotion",
+                id: "dailymotion"
+            },
+            github: {
+                link: "github.com/letandvar",
+                title: "Github",
+                id: "4926624"
+            },
+            pinterest: {
+                link: "pinterest.com/letandvar",
+                title: "Pinterest",
+                id: "152817"
+            },
+            upscrolled: {
+                link: "upscrolled.com/@letandvar",
+                title: "Upscrolled",
+                id: "upscrolled"
+            },
+            spotify: {
+                link: "open.spotify.com/artist/1JvwkUGJ4vPJMzZHDaJuos",
+                title: "Listen on Spotify",
+                id: "49097"
+            },
+            applemusic: {
+                link: "music.apple.com/ma/artist/letandvar/1867509230",
+                title: "Listen on Apple Music",
+                id: "747"
+            },
+            email: {
+                link: "letandvar8@gmail.com",
+                title: "letandvar8@gmail.com",
+                id: "3059486"
+            }
+        };
 
 
         const buttonsContainer = document.getElementById('buttonsContainer');
 
-        lm.forEach(item => {
+        Object.entries(lm).forEach(([name, item]) => {
+
             let ttl = item.title;
             let link;
             let id = item.id;
-            let subId = item.id.slice(0, item.id.length - 3) || 0;
+            let subId = id.slice(0, id.length - 3) || 0;
 
-            if (isNaN(item.id)) {
-                link = `./src/${item.id}.png`;
+            if (isNaN(id)) {
+                link = `./src/${id}.png`;
             } else {
                 link = `https://cdn-icons-png.flaticon.com/64/${subId}/${id}.png`;
             }
@@ -259,17 +271,17 @@
 
 
             const button = document.createElement('div');
-            button.className = `button btn_${item.name}`;
+            button.className = `button btn_${name}`;
             button.onclick = () =>
-                window.open((item.name !== 'email' ? 'https://' : 'mailto:') + item.link);
+                window.open((name !== 'email' ? 'https://' : 'mailto:') + item.link);
 
             const title = document.createElement('p');
-            title.className = `title title_${item.name}`;
+            title.className = `title title_${name}`;
             title.textContent = item.title;
 
             const icon = document.createElement('div');
             icon.style.backgroundImage = `url(${link})`;
-            icon.className = `icon icon_${item.name}`;
+            icon.className = `icon icon_${name}`;
 
             button.appendChild(icon);
             button.appendChild(title);
