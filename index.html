@@ -36,44 +36,51 @@
             height: 100%;
             background-color: #1F1F1F;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
         }
 
-        #container {
-            width: 100%;
-            /* max-width: 400px; */
-            height: fit-content;
-            display: flex;
-            flex-direction: column;
+        body {
             gap: 10px;
             padding: 10px;
         }
 
+        #header {
+            height: 60px;
+            display: flex;
+            background-color: #ffffff0a;
+            border: 1px solid #fff3;
+            align-items: center;
+            gap: 15px;
+        }
+
         #logo {
-            width: 100%;
-            aspect-ratio: 1/0.5;
-            background-color: #1B1B1B;
-            background-image: url("./src/logo.jpg");
-            background-size: 50%;
+            height: 100%;
+            aspect-ratio: 1;
+            background-image: url("./src/logo-t.png");
+            background-size: 100%;
             background-position: center;
             background-repeat: no-repeat;
             display: flex;
-            align-items: end;
-            border-radius: 8px;
-            border: 1px solid #4F4F50;
-            overflow: hidden;
-            flex-shrink: 0;
+            border-right: 1px dashed #fff3;
+            position: relative;
+        }
+
+        #logo::after {
+            content: '';
+            width: 100%;
+            height: 100%;
+            top: 0;
+            position: absolute;
+            background: inherit;
+            filter: blur(5px);
+            transform: scale(1.2);
+            opacity: .3;
         }
 
         #title {
-            width: 100%;
             font-size: 25px;
             color: #fff;
             letter-spacing: 1px;
-            background: linear-gradient(to bottom, transparent, #000);
-            text-align: center;
-            padding: 20% 0 15px 0;
-            transition: all .2s ease;
         }
 
         #message {
@@ -84,19 +91,33 @@
         }
 
         #buttonsContainer {
+            flex: 1;
             gap: 10px;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-            /* align-content: start; */
-            /* align-items: stretch; */
+            align-content: start;
+            overflow-y: auto;
+            background-color: #ffffff0a;
+            border: 1px solid #fff3;
+            padding: 10px;
+        }
+
+        #buttonsContainer::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        #buttonsContainer::-webkit-scrollbar-thumb {
+            background-color: #444;
+            border: 4px solid #272727;
+            cursor: pointer;
         }
 
         .button {
             height: 40px;
             display: flex;
             background-color: #2E2E2F;
+            border: 1px solid #fff2;
             box-shadow: 0 0 5px 0 #0003;
-            border-radius: 5px;
             cursor: pointer;
             align-items: center;
             gap: 5px;
@@ -161,25 +182,75 @@
             background-position: 50% 55%;
         }
 
+        #footer {
+            background-color: #ffffff0a;
+            border: 1px solid #fff3;
+            display: flex;
+            justify-content: center;
+            gap: 7px;
+            color: #fffa;
+            letter-spacing: 0.8px;
+            padding: 7px;
+        }
+
+        #email {
+            color: #c8e621;
+            cursor: pointer;
+            transition: text-shadow 100ms ease;
+        }
+
+        #donate {
+            color: #e932d0;
+            cursor: pointer;
+            transition: text-shadow 100ms ease;
+        }
+
+        @media(max-width:540px) {
+            #header {
+                gap: 0;
+            }
+
+            #title {
+                margin: 0 auto;
+            }
+        }
+
         @media (hover: hover) {
+
             .button:hover {
                 gap: 30px;
             }
+
+            #email:hover {
+                text-shadow: 0 0 15px #c8e621;
+            }
+
+            #donate:hover {
+                text-shadow: 0 0 15px #e932d0;
+            }
+        }
+
+        .icon_ko-fi {
+            filter: invert(0);
         }
     </style>
 </head>
 
 <body>
-    <div id="container">
 
-        <div id="logo">
-            <p id="title">@LETANDVAR</p>
-        </div>
+    <div id="header">
+        <div id="logo"></div>
+        <p id="title">LETANDVAR</p>
+    </div>
 
-        <p id="message">[Follow &&|| Talk to] + me</p>
+    <div id="buttonsContainer"></div>
 
-        <div id="buttonsContainer"></div>
-
+    <div id="footer">
+        <p id="email">letandvar8@gmail.com</p>
+        <p class="dot">•</p>
+        <p id="donate">Donate</p>
+        <p class="dot">•</p>
+        <p id="copyright">&copy; Copyright Null</p>
     </div>
 
     <script>
@@ -189,65 +260,70 @@
                 title: "Facebook",
                 id: "3128208"
             },
-            instagram: {
+            "instagram": {
                 link: "instagram.com/letandvar",
                 title: "Instagram",
                 id: "2111491"
             },
-            x: {
+            "x": {
                 link: "x.com/let_and_var",
                 title: "X",
                 id: "5968958"
             },
-            tiktok: {
+            "tiktok": {
                 link: "tiktok.com/@letandvar",
                 title: "TikTok",
                 id: "3046120"
             },
-            telegram: {
+            "telegram": {
                 link: "t.me/letandvar",
                 title: "Telegram",
                 id: "15047617"
             },
-            youtube: {
+            "youtube": {
                 link: "youtube.com/@letandvar",
                 title: "YouTube",
                 id: "2111795"
             },
-            dailymotion: {
+            "dailymotion": {
                 link: "dailymotion.com/letandvar",
                 title: "Dailymotion",
                 id: "dailymotion"
             },
-            github: {
+            "github": {
                 link: "github.com/letandvar",
                 title: "Github",
                 id: "4926624"
             },
-            pinterest: {
+            "pinterest": {
                 link: "pinterest.com/letandvar",
                 title: "Pinterest",
                 id: "152817"
             },
-            upscrolled: {
+            "upscrolled": {
                 link: "upscrolled.com/@letandvar",
                 title: "Upscrolled",
                 id: "upscrolled"
             },
-            spotify: {
+            "dev.to": {
+                link: "dev.to/letandvar",
+                title: "dev.to",
+                id: "5969023"
+            },
+            "spotify": {
                 link: "open.spotify.com/artist/1JvwkUGJ4vPJMzZHDaJuos",
                 title: "Listen on Spotify",
                 id: "49097"
             },
-            applemusic: {
+            "applemusic": {
                 link: "music.apple.com/ma/artist/letandvar/1867509230",
                 title: "Listen on Apple Music",
                 id: "747"
             },
-            email: {
-                link: "letandvar8@gmail.com",
-                title: "letandvar8@gmail.com",
-                id: "3059486"
+            "ko-fi": {
+                link: "ko-fi.com/letandvar",
+                title: "Support me",
+                id: "ko-fi"
             }
         };
 
@@ -273,7 +349,7 @@
             const button = document.createElement('div');
             button.className = `button btn_${name}`;
             button.onclick = () =>
-                window.open((name !== 'email' ? 'https://' : 'mailto:') + item.link);
+                window.open('https://' + item.link);
 
             const title = document.createElement('p');
             title.className = `title title_${name}`;
@@ -287,6 +363,9 @@
             button.appendChild(title);
             buttonsContainer.appendChild(button);
         });
+
+        email.onclick = () => window.open('mailto:letandvar8@gmail.com', '_blanc')
+        donate.onclick = () => window.open('https://ko-fi.com/letandvar', '_blanc')
     </script>
 </body>
 
